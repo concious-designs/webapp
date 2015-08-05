@@ -1,0 +1,41 @@
+<section id="rpm-view" class="mainbar">
+    <section class="matter">
+        <div class="container">
+            <div class="row" ng-if="vm.state=='select'">
+                <div class="col-sm-6">
+                    <h3>Instructions</h3>
+                    <p>Raven's Progressive Matrices (RPM) tests are used to gauge intelligence. This test is comprised of multiple problem sets, each of which contain 12 problems. Each problem itself contains either a 2x2 or 3x3 array of related figures. The figure in the bottom-right corner is any one of six possible answer choices. One of the available answer choices - shown to the right of the problem figures - will complete the set of problem figures. An example is shown below. Hovering over the question mark figure will display the correct answer.</p>
+                    <img ng-src="/images/Problems/{{vm.example.image}}.png" />
+                </div>
+                <div class="col-sm-6">
+                    <h3>Play</h3>
+                    <p>Select a problem test set and get ready to play</p>
+                    <button type="button" class="btn btn-default" ng-model="set" data-html="1" bs-options="set as set for set in vm.setNames" ng-change="vm.startTest(set)" bs-select>
+                        <span class="caret"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row" ng-if="vm.state=='play'">
+                <div class="col-sm-12">
+                    <div class="row centered">
+                        <h2>{{vm.problem.name}}</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div ng-repeat="problemRowFigures in vm.problemFigures" class="row">
+                                <img ng-if="figure != 'question-mark'" ng-repeat="figure in problemRowFigures" ng-src="/images/Problems/{{vm.setName}}/{{vm.problem.name}}/{{figure}}.png" class="img-thumbnail figure" />
+                                <img ng-if="figure == 'question-mark'" ng-repeat="figure in problemRowFigures" ng-src="/images/Problems/question-mark.png" class="img-thumbnail figure" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div ng-repeat="testRowFigures in [[1, 2], [3, 4], [5, 6]]" class="row">
+                                <img ng-repeat="testFigure in testRowFigures" ng-src="/images/Problems/{{vm.setName}}/{{vm.problem.name}}/{{testFigure}}.png" ng-click="vm.selectAnswer(testFigure)" class="img-thumbnail figure test" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
